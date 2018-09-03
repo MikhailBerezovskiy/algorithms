@@ -1,6 +1,10 @@
+// ch2.1 insertion sort, loop invariant
+
 package insertsort
 
 //// index test
+
+// 2.1-2 nonincreasing insertion sort
 
 // InsertionSort sort an []int
 // for nonincreasing chnage: a[i] < key
@@ -16,6 +20,8 @@ func InsertionSort(a []int) []int {
 	}
 	return a
 }
+
+// 2.1-3 Linear search for element
 
 // Index return index of int in []int
 // pseudocode for index:
@@ -45,6 +51,7 @@ func Index(a []int, v int) int {
 	return ind
 }
 
+// 2.1-4 Sum of 2 binary arrays
 // Problem: two n-bit binary integers stored in A and B n size arrays
 // the sum of two integers should be stored in binary form in (n+1) array C
 // state problem formally and write pseudocode for adding the two integers
