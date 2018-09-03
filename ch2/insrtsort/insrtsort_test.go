@@ -1,6 +1,7 @@
 package insertsort
 
 import (
+	"bytes"
 	"sort"
 	"testing"
 )
@@ -34,4 +35,24 @@ func TestIndex(t *testing.T) {
 	if Index(A1, 1) != -1 {
 		t.Error("find not existing index")
 	}
+}
+
+func TestBinarySum(t *testing.T) {
+	var A, B, C, wait []byte
+	A = []byte{0, 1, 1, 1}
+	B = []byte{1, 0, 0, 0}
+	C = BinarySum(A, B)
+	wait = []byte{1, 1, 1, 1, 0}
+	if !bytes.Equal(C, wait) {
+		t.Errorf("Expect %v, got %v", wait, C)
+	}
+
+	A = []byte{1, 1, 1, 1, 0, 0, 1}
+	B = []byte{1, 1, 0, 0, 1, 0, 1}
+	C = BinarySum(A, B)
+	wait = []byte{0, 1, 0, 0, 0, 1, 0, 1}
+	if !bytes.Equal(C, wait) {
+		t.Errorf("Expect %v, got %v", wait, C)
+	}
+
 }

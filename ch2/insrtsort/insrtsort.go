@@ -2,7 +2,7 @@ package insertsort
 
 //// index test
 
-// insertion sort algorithm
+// InsertionSort sort an []int
 // for nonincreasing chnage: a[i] < key
 func InsertionSort(a []int) []int {
 	for j := 1; j < len(a); j++ {
@@ -17,7 +17,7 @@ func InsertionSort(a []int) []int {
 	return a
 }
 
-// Index
+// Index return index of int in []int
 // pseudocode for index:
 // Index(A, v)
 // ind = NIL
@@ -48,3 +48,30 @@ func Index(a []int, v int) int {
 // Problem: two n-bit binary integers stored in A and B n size arrays
 // the sum of two integers should be stored in binary form in (n+1) array C
 // state problem formally and write pseudocode for adding the two integers
+
+// BinarySum return n+1 slice bits sum of two n-sized slices A and B
+// pseudocode:
+//	BinarySum(A, B)
+//	  C = [A.length+1]int
+//	  for i = 1 to A.length
+//		 sum = A[i] + B[i] + C[i]
+//		 C[i] = sum % 2
+//		 C[i+1] = sum / 2
+//	  return C
+//
+//	loop invariant:
+//	initialization: if n=0 then C initialized as [0] array
+//	maintenance: each iteration we add C[i], A[i], and B[i] which can be from 0 to 3
+//		we store reminder of division 2 in C[i] which can be 0 or 1, for 1 and 3 sum values
+//		and store quotient of division in C[i+1] which can be 1 if sum equals 3, and will be added in next iteration
+//		by end of each iteration we have C[n+1] array with sum of A and B
+//  termination: loop terminates after end of A array is reached, which means all elements must be summed
+func BinarySum(A, B []byte) []byte {
+	C := make([]byte, len(A)+1)
+	for i := 0; i < len(A); i++ {
+		sum := A[i] + B[i] + C[i]
+		C[i] = sum % 2
+		C[i+1] = sum / 2
+	}
+	return C
+}
