@@ -76,3 +76,5 @@ func MergeNoSentinels(A []int, p, q, r int) {
 		}
 	}
 }
+
+// 2.3-3 mathematical induction
