@@ -100,7 +100,6 @@ func InsertionSortRecursive(A []int) []int {
 		if key <= v {
 			n = k
 			break
-		} else {
 		}
 	}
 	copy(sorted[n+1:], sorted[n:])
