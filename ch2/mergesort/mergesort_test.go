@@ -2,6 +2,7 @@ package mergesort
 
 import (
 	"fmt"
+	"reflect"
 	"sort"
 	"testing"
 )
@@ -34,5 +35,57 @@ func TestMergeNoSentinels(t *testing.T) {
 	fmt.Printf("A = %+v\n", A)
 	if !sort.IntsAreSorted(testSlice) {
 		t.Errorf("Test slice not sorted: %v\n Source array: %v", testSlice, A)
+	}
+}
+
+func TestInsertionSortRecursive(t *testing.T) {
+	type args struct {
+		A []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		// TODO: Add test cases.
+		{"empty", args{[]int{}}, []int{}},
+		{"2 elements", args{[]int{2, 1}}, []int{1, 2}},
+		{"test1", args{[]int{2, 3, 1, 4, 5}}, []int{1, 2, 3, 4, 5}},
+		{"test2", args{[]int{5, 4, 3, 2, 1}}, []int{1, 2, 3, 4, 5}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := InsertionSortRecursive(tt.args.A); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("InsertionSortRecursive() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestBinarySearchRecursive(t *testing.T) {
+	type args struct {
+		A   []int
+		pos int
+		x   int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantPos int
+	}{
+		// TODO: Add test cases.
+		{"in array", args{[]int{1, 2, 3, 4}, 0, 4}, 3},
+		{"in array", args{[]int{1, 2, 3, 4}, 0, 2}, 1},
+		{"in array", args{[]int{1, 2, 3, 4}, 0, 1}, 0},
+		{"in array", args{[]int{1, 2, 3, 4}, 0, 3}, 2},
+		{"even array", args{[]int{1, 2, 3, 4, 5}, 0, 3}, 2},
+		{"not in array", args{[]int{1, 2, 3, 4}, 0, 5}, -1},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotPos := BinarySearchRecursive(tt.args.A, tt.args.pos, tt.args.x); gotPos != tt.wantPos {
+				t.Errorf("BinarySearchRecursive() = %v, want %v", gotPos, tt.wantPos)
+			}
+		})
 	}
 }

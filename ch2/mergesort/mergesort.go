@@ -78,3 +78,60 @@ func MergeNoSentinels(A []int, p, q, r int) {
 }
 
 // 2.3-3 mathematical induction
+
+// 2.3-4 recursive insertion sort
+
+// InsertionSortRecursive ...
+func InsertionSortRecursive(A []int) []int {
+	// termination condition
+	if len(A) <= 1 {
+		return A
+	}
+
+	n := len(A) - 1
+	key := A[n]
+
+	// get sorted sub array A[1...n-1]
+	sorted := InsertionSortRecursive(A[:n])
+	sorted = append(sorted, 0)
+
+	// insert A[n] in sorted subarray A[1...n-1]
+	for k, v := range sorted {
+		if key <= v {
+			n = k
+			break
+		} else {
+		}
+	}
+	copy(sorted[n+1:], sorted[n:])
+	sorted[n] = key
+
+	return sorted
+}
+
+// 2.3-5 Binary search
+
+// BinarySearchRecursive lg(n) search in sorted array
+func BinarySearchRecursive(A []int, pos, x int) int {
+	if len(A) == 0 {
+		return -1
+	}
+	if len(A) == 1 {
+		if A[0] == x {
+			return pos
+		}
+		return -1
+	}
+
+	n := len(A) / 2
+	low := 0
+	high := len(A)
+	if x >= A[n] {
+		low = n
+		pos += n
+	} else {
+		high = n
+	}
+
+	return BinarySearchRecursive(A[low:high], pos, x)
+}
