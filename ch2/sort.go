@@ -2,10 +2,10 @@ package sort
 
 // ch2.1 insertion sort, loop invariant
 
-// 2.1-2 nonincreasing insertion sort
+// 2.1-2 non-increasing insertion sort
 
 // InsertionSort sort an []int
-// for nonincreasing chnage: a[i] < key
+// for non-increasing change: a[i] < key
 func InsertionSort(a []int) []int {
 	for j := 1; j < len(a); j++ {
 		key := a[j]
@@ -21,7 +21,7 @@ func InsertionSort(a []int) []int {
 
 /*
 2.1-3 Linear search for element
- pseudocode for index:
+pseudocode for index function:
  Index(A, v)
  ind = NIL
  for i = 1 to A.length
@@ -90,8 +90,12 @@ func BinarySum(A, B []byte) []byte {
 // ch2.2, bigO, selection sort
 
 /*
-2.2-1. big O notation for n^3/1000 - 100n^2 - 100n - 3, θ(n^3)
- pseudocode:
+2.2-1.
+big O notation for n^3/1000 - 100n^2 - 100n - 3,
+-> θ(n^3)
+
+Selection sort
+pseudocode:
 	SelectionSort(A)
 	for i = 1 to A.Length-1
 	  min = i
@@ -143,12 +147,12 @@ in general add precondition checks
 // 2.3-1 Illustrate merge sort on array A={3, 41, 52, 26, 38, 57, 9, 49}
 //
 //		 {3 9 26 38 41 49 52 57}			sorted
-//			/				\
-//    {3 26 41 52}		 {9 38 49 57}
-//		/		\		   /	  \
-//  {3 41}   {26 52}   {38 57}  {9 49}
-//	/	\	  /	  \     /   \    |	 \
-// {3} {41} {52} {26} {38} {57} {9} {49}	input
+//         /                \
+//    {3 26 41 52}        {9 38 49 57}
+//      /       \          /       \
+//  {3 41}    {26 52}  {38 57}    {9 49}
+//  /   \     /    \    /   \      |   \
+// {3} {41} {52} {26} {38} {57}   {9} {49}	input
 
 // 2.3-2 rewrite merge procedure without using sentinels
 /* pseudocode
@@ -304,13 +308,13 @@ returns true if array has two elements with sum of them equals x
 pseudocode
 ---------------------------------------------------------------
 HasSumOfX(S, x)
-	sorted = MergeSort(S) or InsertBinarySearch(S	# c1	n*lg(n)
-	for i = 1 to S.length							# c2	n
-		second_summand = x - sorted[i]				# c3    n
-		pos = BinarySearch(sorted, second_summand)	# c4	lg(n)
-		if pos > -1 then							# c5	n
-		  return true								# c6	1
-	return false									# c7	1
+	sorted = MergeSort(S) or InsertBinarySearch(S) # c1 n*lg(n)
+	for i = 1 to S.length # c2 n
+		second_summand = x - sorted[i] # c3 n
+		pos = BinarySearch(sorted, second_summand) # c4 lg(n)
+		if pos > -1 then # c5 n
+		  return true # c6 1
+	return false # c7 1
 ---------------------------------------------------------------
 T(n) = n*lg(n) + n + n + lg(n) + n + 1 + 1 = n(4+lg(n)) + lg(n) + 2
 consequently,
