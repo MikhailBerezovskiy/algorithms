@@ -1,4 +1,4 @@
-package sort
+package ch2sort
 
 // ch2.1 insertion sort, loop invariant
 
@@ -146,13 +146,24 @@ in general add precondition checks
 
 // 2.3-1 Illustrate merge sort on array A={3, 41, 52, 26, 38, 57, 9, 49}
 //
-//		 {3 9 26 38 41 49 52 57}			sorted
+//       {3 9 26 38 41 49 52 57}            sorted
 //         /                \
 //    {3 26 41 52}        {9 38 49 57}
 //      /       \          /       \
 //  {3 41}    {26 52}  {38 57}    {9 49}
 //  /   \     /    \    /   \      |   \
-// {3} {41} {52} {26} {38} {57}   {9} {49}	input
+// {3} {41} {52} {26} {38} {57}   {9} {49}  input
+
+// MergeSort use Merge function to sort an array recursively
+func MergeSort(A []int, p, r int) []int {
+	if p < r {
+		q := ((p + r) / 2)
+		MergeSort(A, p, q)
+		MergeSort(A, q+1, r)
+		MergeNoSentinels(A, p, q, r)
+	}
+	return A
+}
 
 // 2.3-2 rewrite merge procedure without using sentinels
 /* pseudocode
@@ -288,7 +299,6 @@ func BinarySearchRecursive(A []int, x int, ins bool) (pos int) {
 // 2.3-6 Binary search in InsertionSort
 
 // InsertionSortBinarySearch sort an []int, with binary search for inseting item
-// for non-increasing change: a[i] < key, O(n*lg(n))
 func InsertionSortBinarySearch(a []int) []int {
 	for j := 1; j < len(a); j++ {
 		key := a[j]
@@ -308,7 +318,7 @@ returns true if array has two elements with sum of them equals x
 pseudocode
 ---------------------------------------------------------------
 HasSumOfX(S, x)
-	sorted = MergeSort(S) or InsertBinarySearch(S) # c1 n*lg(n)
+	sorted = MergeSort(S)  # c1 n*lg(n)
 	for i = 1 to S.length # c2 n
 		second_summand = x - sorted[i] # c3 n
 		pos = BinarySearch(sorted, second_summand) # c4 lg(n)
@@ -324,7 +334,7 @@ O(n) = n*lg(n)
 // HasSumOfX return true if Set of int's has two items that sum of them equals x
 func HasSumOfX(S []int, x int) bool {
 	// sort S with merge sort
-	sorted := InsertionSortBinarySearch(S)
+	sorted := MergeSort(S, 0, len(S)-1)
 	for i := 0; i < len(sorted); i++ {
 		secondSummand := x - sorted[i]
 		pos := BinarySearchRecursive(sorted, secondSummand, false)

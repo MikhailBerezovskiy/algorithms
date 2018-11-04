@@ -1,4 +1,4 @@
-package sort
+package ch2sort
 
 import (
 	"bytes"
@@ -113,7 +113,6 @@ func TestInsertionSortRecursive(t *testing.T) {
 		args args
 		want []int
 	}{
-		// TODO: Add test cases.
 		{"empty", args{[]int{}}, []int{}},
 		{"2 elements", args{[]int{2, 1}}, []int{1, 2}},
 		{"test1", args{[]int{2, 3, 1, 4, 5}}, []int{1, 2, 3, 4, 5}},
@@ -139,7 +138,6 @@ func TestBinarySearchRecursive(t *testing.T) {
 		args    args
 		wantPos int
 	}{
-		// TODO: Add test cases.
 		{"in array", args{[]int{1, 2, 3, 4, 5, 6, 7, 8, 9}, 8, false}, 7},
 		{"in array", args{[]int{1, 2, 3, 4, 5, 6, 7, 8}, 1, false}, 0},
 		{"in array", args{[]int{1, 2, 3, 4, 5, 6, 7, 8}, 8, false}, 7},
@@ -199,6 +197,33 @@ func TestHasSumOfX(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := HasSumOfX(tt.args.S, tt.args.x); got != tt.want {
 				t.Errorf("HasSumOfX() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestMergeSort(t *testing.T) {
+	type args struct {
+		A []int
+		p int
+		r int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{"empty array", args{[]int{}, 0, 0}, []int{}},
+		{"sort 2 elems", args{[]int{2, 1}, 0, 1}, []int{1, 2}},
+		{"sort 4 elems", args{[]int{2, 1, 4, 3}, 0, 3}, []int{1, 2, 3, 4}},
+		{"sorted array", args{[]int{1, 2, 3, 4, 5}, 0, 4}, []int{1, 2, 3, 4, 5}},
+		{"sort 7 elems", args{[]int{4, 3, 2, 1, 7, 6, 5}, 0, 6}, []int{1, 2, 3, 4, 5, 6, 7}},
+		{"sort part", args{[]int{4, 3, 2, 1, 7, 6, 5}, 0, 5}, []int{1, 2, 3, 4, 6, 7, 5}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MergeSort(tt.args.A, tt.args.p, tt.args.r); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("MergeSort() = %v, want %v", got, tt.want)
 			}
 		})
 	}
